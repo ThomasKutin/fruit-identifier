@@ -19,8 +19,8 @@ This project uses **Transfer Learning** with the **MobileNetV2** architecture.
 
 1.  **Clone the repo:**
     ```bash
-    git clone [https://github.com/YOUR_USERNAME/fruit-identifier-cnn.git](https://github.com/YOUR_USERNAME/fruit-identifier-cnn.git)
-    cd fruit-identifier-cnn
+    git clone [https://github.com/ThomasKutin/fruit-identifier.git](https://github.com/ThomasKutin/fruit-identifier.git)
+    cd fruit-identifier
     ```
 
 2.  **Install dependencies:**
