@@ -79,16 +79,47 @@ model.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=0.0001),
               loss='sparse_categorical_crossentropy',
               metrics=['accuracy'])
 
-# --- PART 4: TRAIN 🏋️ ---
-print("Training the new layers...")
+# ... (Keep Parts 1, 2, and 3 exactly the same) ...
 
-# Since the base is already smart, we don't need many epochs!
+# --- PART 4: ROUND 1 - TRAIN THE HEAD (The Warm-Up) 🏃 ---
+print("--- Round 1: Training the new head... ---")
 history = model.fit(
     train_ds,
     validation_data=val_ds,
-    epochs=10
+    epochs=5  # Short warm-up
 )
 
-# Save as the "Pro" version
-model.save('my_fruit_model_pro.keras')
-print("✅ Model saved as 'my_fruit_model_pro.keras'")
+# --- PART 5: ROUND 2 - FINE TUNING (The Deep Study) 🧘 ---
+print("--- Round 2: Unfreezing the Professor (Fine-Tuning)... ---")
+
+# 1. Unfreeze the Genius Brain
+base_model.trainable = True
+
+# 2. But wait! We don't want to unfreeze ALL of it (too risky).
+# Let's verify how many layers are in the base model.
+print(f"Number of layers in the base model: {len(base_model.layers)}")
+
+# Freeze all the bottom layers (keep the basic shapes/lines knowledge locked)
+# We only unfreeze the top 50 layers to learn "Orange Texture".
+fine_tune_at = 100
+
+for layer in base_model.layers[:fine_tune_at]:
+    layer.trainable = False
+
+# 3. RE-COMPILE (Crucial Step!)
+# We use a TINY learning rate (1e-5). 
+# If we learn too fast, we might break the pre-trained knowledge.
+model.compile(loss='sparse_categorical_crossentropy',
+              optimizer = tf.keras.optimizers.Adam(learning_rate=1e-5),
+              metrics=['accuracy'])
+
+# 4. Train again
+history_fine = model.fit(
+    train_ds,
+    validation_data=val_ds,
+    epochs=10  # Study specifically for the difficult fruits
+)
+
+# Save as the "Fine Tuned" version
+model.save('my_fruit_model_finetuned.keras')
+print("✅ Model saved as 'my_fruit_model_finetuned.keras'")
