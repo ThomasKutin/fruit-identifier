@@ -52,15 +52,15 @@ if file is not None:
     st.write("---")
 
     # The Threshold: 
-    # If confidence is below 60%, the robot is basically guessing.
-    if confidence < 60:
+    # If confidence is below 80%, the robot is basically guessing.
+    if confidence < 80:
         st.error("🤖 I am confused!")
         st.write(f"This looks a bit like a **{predicted_class}**, but I'm only **{confidence:.2f}%** sure.")
         st.write("Try uploading a clearer picture or a different angle!")
     
     else:
         # High Confidence: Show the success message!
-        st.header(f"It's a... **{predicted_class}**!")
+        st.header(f"It's a/an... **{predicted_class}**!")
         st.write(f"Confidence: **{confidence:.2f}%**")
         
         # The Bar Chart 📊
@@ -71,6 +71,8 @@ if file is not None:
             st.balloons()
             st.success("🍎 Did you know? Apples float in water because they are 25% air!")
         elif predicted_class == 'Banana':
+            st.balloons()
             st.success("🍌 Did you know? Bananas are technically berries!")
         elif predicted_class == 'Orange':
+            st.balloons()
             st.success("🍊 Did you know? There are over 600 varieties of oranges!")
