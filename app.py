@@ -50,16 +50,27 @@ if file is not None:
 
     # SHOW RESULTS
     st.write("---")
-    st.header(f"It's a... **{predicted_class}**!")
-    st.write(f"Confidence: **{confidence:.2f}%**")
+
+    # The Threshold: 
+    # If confidence is below 60%, the robot is basically guessing.
+    if confidence < 60:
+        st.error("🤖 I am confused!")
+        st.write(f"This looks a bit like a **{predicted_class}**, but I'm only **{confidence:.2f}%** sure.")
+        st.write("Try uploading a clearer picture or a different angle!")
     
-    # Add a cool progress bar for confidence
-    st.progress(int(confidence))
-    
-    # Fun emojis based on result
-    if predicted_class == 'Apple':
-        st.balloons()
-    elif predicted_class == 'Banana':
-        st.write("🍌 Minions would love this!")
-    elif predicted_class == 'Orange':
-        st.write("🍊 Vitamin C boost!")
+    else:
+        # High Confidence: Show the success message!
+        st.header(f"It's a... **{predicted_class}**!")
+        st.write(f"Confidence: **{confidence:.2f}%**")
+        
+        # The Bar Chart 📊
+        st.progress(int(confidence))
+        
+        # Custom Messages
+        if predicted_class == 'Apple':
+            st.balloons()
+            st.success("🍎 Did you know? Apples float in water because they are 25% air!")
+        elif predicted_class == 'Banana':
+            st.success("🍌 Did you know? Bananas are technically berries!")
+        elif predicted_class == 'Orange':
+            st.success("🍊 Did you know? There are over 600 varieties of oranges!")
