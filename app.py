@@ -51,20 +51,27 @@ if file is not None:
     # SHOW RESULTS
     st.write("---")
 
-    # The Threshold: 
-    # If confidence is below 80%, the robot is basically guessing.
-    if confidence < 80:
-        st.error("🤖 I am confused!")
-        st.write(f"This looks a bit like a **{predicted_class}**, but I'm only **{confidence:.2f}%** sure.")
-        st.write("Try uploading a clearer picture or a different angle!")
-    
+    # TIER 1: Low Confidence (The "Rejection" Zone) 🔴
+    if confidence < 50:
+        st.error("🚫 Unknown Object Detected")
+        st.write(f"My highest guess was **{predicted_class}** ({confidence:.2f}%), but that is way too low.")
+        st.write("⚠️ This image is **neither an Apple, an Orange, nor a Banana**.")
+        st.info("Please upload a clear photo of one of the 3 supported fruits.")
+
+    # TIER 2: Medium Confidence (The "Unsure" Zone) 🟡
+    elif confidence < 60:
+        st.warning("🤔 I am confused...")
+        st.write(f"It looks a bit like a **{predicted_class}**, but I'm only **{confidence:.2f}%** sure.")
+        st.write("The lighting might be bad, or the angle is tricky. Try again?")
+
+    # TIER 3: High Confidence (The "Success" Zone) 🟢
     else:
-        # High Confidence: Show the success message!
-        st.header(f"It's a/an... **{predicted_class}**!")
+        st.header(f"It's a... **{predicted_class}**!")
         st.write(f"Confidence: **{confidence:.2f}%**")
         
-        # The Bar Chart 📊
         st.progress(int(confidence))
+
+    
         
         # Custom Messages
         if predicted_class == 'Apple':
