@@ -68,9 +68,9 @@ model = tf.keras.Sequential([
     
     # A Dropout layer to prevent overconfidence
     layers.Dropout(0.2),
-    
-    # THE FINAL DECISION: 3 Fruits
-    layers.Dense(3, activation='softmax')
+
+    # THE FINAL DECISION: 4 Fruits (including "Unrelated")
+    layers.Dense(4, activation='softmax')
 ])
 
 # Compile

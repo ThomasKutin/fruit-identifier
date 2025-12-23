@@ -12,7 +12,7 @@ def load_model():
 model = load_model()
 
 # Define our labels
-class_names = ['Apple', 'Banana', 'Orange']
+class_names = ['Apple', 'Banana', 'Orange', 'Unrelated']
 
 # 2. Build the Website UI 🖥️
 st.title("🍎🍌🍊 Kutin's Fruit Identifier")
@@ -59,7 +59,7 @@ if file is not None:
         st.info("Please upload a clear photo of one of the 3 supported fruits.")
 
     # TIER 2: Medium Confidence (The "Unsure" Zone) 🟡
-    elif confidence < 60:
+    elif confidence < 70:
         st.warning("🤔 I am confused...")
         st.write(f"It looks a bit like a **{predicted_class}**, but I'm only **{confidence:.2f}%** sure.")
         st.write("The lighting might be bad, or the angle is tricky. Try again?")
@@ -83,3 +83,6 @@ if file is not None:
         elif predicted_class == 'Orange':
             st.balloons()
             st.success("🍊 Did you know? There are over 600 varieties of oranges!")
+        elif predicted_class == 'Unrelated':
+            st.warning("🚫 This doesn't look like an apple, banana, or orange.")
+            st.info("Please upload a clear photo of one of the 3 supported fruits.")    
