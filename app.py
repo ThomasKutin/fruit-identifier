@@ -85,4 +85,5 @@ if file is not None:
             st.success("🍊 Did you know? There are over 600 varieties of oranges!")
         elif predicted_class == 'Unrelated':
             st.warning("🚫 This doesn't look like an apple, banana, or orange.")
-            st.info("Please upload a clear photo of one of the 3 supported fruits.")    
+            st.info("Please upload a clear photo of one of the 3 supported fruits.")  
+            #comment  
